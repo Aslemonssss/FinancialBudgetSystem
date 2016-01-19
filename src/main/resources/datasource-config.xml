@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- org.springframework.jdbc.datasource.DriverManagerDataSource -->
+    <!-- com.jolbox.bonecp.BoneCPDataSource destroy-method="close"-->
+	<bean id="connectDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!-- 本地 -->
+		<property name="url" value="jdbc:mysql://localhost/cas" />
+		<property name="username" value="root" />
+		<property name="password" value="123" />
+		<!-- 测试机 -->
+		<!-- <property name="url" value="jdbc:mysql://10.60.88.101/cas" />
+		<property name="username" value="root" />
+		<property name="password" value="wanxue@#$234ueg" /> -->
+	</bean>
+
+	<!-- Configure a JPA vendor adapter -->
+	<bean id="connectlJPAVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="false" />
+		<property name="generateDdl" value="false" />
+		<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:persistence.xml" />
+		<property name="dataSource" ref="connectDS" />
+		<property name="persistenceUnitName" value="connectUnit" />
+		<property name="jpaVendorAdapter" ref="connectlJPAVendorAdapter" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
