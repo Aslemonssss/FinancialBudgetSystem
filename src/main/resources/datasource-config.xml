@@ -11,7 +11,7 @@
 	<bean id="connectDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <!-- 本地 -->
-		<property name="url" value="jdbc:mysql://localhost/cas" />
+		<property name="url" value="jdbc:mysql://localhost/fbs" />
 		<property name="username" value="root" />
 		<property name="password" value="123" />
 		<!-- 测试机 -->

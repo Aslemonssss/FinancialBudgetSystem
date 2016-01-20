@@ -29,9 +29,10 @@ public class UserController {
 	 * */
 	@RequestMapping("/count_user.do")
 	@ResponseBody
-	public Long countUser(Long appID, String username){
-		String sql = "select count(1) from users where status = ?";
-		return commonService.countResult(sql, 1);
+	public Long countUser(){
+//		String sql = "select count(1) from users where status = ?";
+//		return commonService.countResult(sql, 1);
+		return 88L;
 	}
 	
 }
